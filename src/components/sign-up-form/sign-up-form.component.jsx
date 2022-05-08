@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import './sign-up-form.styles.scss';
 import Button from '../button/button.component';
 
@@ -7,7 +7,7 @@ import {
   createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase.utils";
 import FormInput from "../form-input/form-input.component";
-import FromInput from '../form-input/form-input.component';
+import { UserContext } from '../../contexts/user.context';
 
 const defaultFormFields = {
   displayName: "",
@@ -19,8 +19,8 @@ const defaultFormFields = {
 const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
-
-  console.log(formFields);
+ 
+  const { setCurrentUser } = useContext(UserContext);
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields)
@@ -39,6 +39,9 @@ const SignUpForm = () => {
         email,
         password
       );
+
+      setCurrentUser(user);
+
       await createUserDocumentFromAuth(user, { displayName });
       resetFormFields();
     } catch (error) {
@@ -58,7 +61,7 @@ const SignUpForm = () => {
   return (
     <div className="sign-up-container">
       <h2>Don't have an account?</h2>
-      <soan>Sign up with your email and password</soan>
+      <span>Sign up with your email and password</span>
       <form onSubmit={handleSubmit}>
         <FormInput
           label='Display Name'
@@ -95,7 +98,7 @@ const SignUpForm = () => {
           name="confirmPassword"
           value={confirmPassword}
         />
-        <Button buttobType='inverted' type="submit">Sign Up</Button>
+        <Button buttontype='inverted' type="submit" childern="Sign Up">Sign Up</Button>
       </form>
     </div>
   );

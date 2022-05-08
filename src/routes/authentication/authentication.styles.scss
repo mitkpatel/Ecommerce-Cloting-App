@@ -1,0 +1,29 @@
+.authentication-container {
+    display: flex;
+    width: 1100px;
+    justify-content: space-between;
+    margin: 30px auto;
+}
+
+@media only screen and (max-width: 1100px) {
+    .authentication-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .authentication-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-content: center;
+        width: 100%;
+        align-items: center;
+    }
+
+    .authentication-container:first-child {
+        margin-bottom: 20px;
+    }
+}
